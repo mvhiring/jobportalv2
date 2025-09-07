@@ -10,18 +10,17 @@ db.sequelize = sequelize;
 db.Company = require("./company.model")(sequelize, Sequelize.DataTypes);
 db.Job = require("./job.model")(sequelize, Sequelize.DataTypes);
 db.AppliedJob = require("./appliedJob.model")(sequelize, Sequelize.DataTypes);
+db.User = require("./user.model")(sequelize, Sequelize.DataTypes);
+db.Role = require("./roles.model")(sequelize, Sequelize.DataTypes);
 
-
+// Associations
 db.Company.hasMany(db.Job, { foreignKey: "company_id", as: "jobs" });
 db.Job.belongsTo(db.Company, { foreignKey: "company_id", as: "company" });
+
 db.Job.hasMany(db.AppliedJob, { foreignKey: "job_id", as: "applications" });
 db.AppliedJob.belongsTo(db.Job, { foreignKey: "job_id", as: "job" });
 
-// Apply associations
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+db.Role.hasMany(db.User, { foreignKey: "role_id", as: "users" });
+db.User.belongsTo(db.Role, { foreignKey: "role_id", as: "role" });
 
 module.exports = db;

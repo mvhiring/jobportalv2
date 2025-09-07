@@ -4,5 +4,6 @@ const router = express.Router();
 router.use("/company", require("./company.routes"));
 router.use("/jobs", require("./job.routes"));
 router.use("/applied-jobs", require("./appliedJob.routes"));
+router.use("/auth", require("./auth.routes"));
 
 module.exports = router;

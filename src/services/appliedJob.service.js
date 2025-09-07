@@ -1,7 +1,52 @@
 const db = require("../models");
 const { Op } = require("sequelize");
+const sendEmail = require("./sendEmail");
 
-// ✅ Candidate applies for a job
+const sendApplicationEmail = async (data, tempPassword = "Admin@123") => {
+  const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${data.verification_token}`;
+  const loginUrl = `${process.env.FRONTEND_URL}/login`;
+
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <h2>Hello ${data.first_name || "Candidate"},</h2>
+      <p>Thank you for applying to the job id "<strong>${
+        data.job_title
+      }</strong>".</p>
+
+      <p>We noticed that you do not have an account with us yet. No worries! We have created a temporary account for you so that you can track your application status and explore more opportunities.</p>
+
+      <h3>Your Account Details:</h3>
+      <ul>
+        <li><strong>Email:</strong> ${data.email}</li>
+        <li><strong>Temporary Password:</strong> ${tempPassword}</li>
+      </ul>
+
+      <p><strong>Next Steps:</strong></p>
+      <ol>
+        <li>Click the link below to verify your email and activate your account:
+          <br/><a href="${verifyUrl}">Verify Email</a>
+        </li>
+        <li>Login using your email and the temporary password:
+          <br/><a href="${loginUrl}">Login Here</a>
+        </li>
+        <li>Once logged in, you can view your application status, update your profile, and apply for more jobs.</li>
+      </ol>
+
+      <p style="color: #555; font-size: 0.9rem;">
+        For security reasons, we recommend changing your password after your first login.
+      </p>
+
+      <p>Best regards,<br/>The Job Portal Team</p>
+    </div>
+  `;
+
+  await sendEmail({
+    to: data.email,
+    subject: "Your Job Application & Account Details",
+    html: htmlContent,
+  });
+};
+
 exports.applyJob = async (data) => {
   try {
     // Optional: Prevent duplicate application by same email for same job
@@ -13,12 +58,33 @@ exports.applyJob = async (data) => {
       throw new Error("You have already applied for this job");
     }
 
+    const existing = await db.User.findOne({ where: { email: data.email } });
+    if (!existing) {
+      const hashed = await hashPassword("Admin@123");
+      const token = crypto.randomBytes(32).toString("hex");
+      const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+      const user = await db.User.create({
+        first_name: data.first_name,
+        last_name: null,
+        email: data.email,
+        password: hashed,
+        verification_token: token,
+        verification_token_expiry: expiry,
+      });
+
+      data.verification_token = token;
+      data.job_title = data.job_id; 
+
+      // Send professional email
+      sendApplicationEmail(data);
+    }
+
     return await db.AppliedJob.create(data);
   } catch (error) {
     throw new Error(error.message);
   }
 };
-
 
 exports.getAllAppliedJobs = async (page, limit, filters) => {
   try {
