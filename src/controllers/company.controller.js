@@ -43,3 +43,18 @@ exports.getCompanyById = async (req, res) => {
     return sendResponse(res, 500, false, err.message);
   }
 };
+
+exports.getDropdownValues = async (req, res) => {
+  try {
+    const company = await companyService.getDropdownValues(req.body);
+    return sendResponse(
+      res,
+      200,
+      true,
+      "Data fetch",
+      company
+    );
+  } catch (err) {
+    return sendResponse(res, 500, false, err.message);
+  }
+};

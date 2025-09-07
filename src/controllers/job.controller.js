@@ -5,7 +5,7 @@ const sendResponse = require("../utils/response");
 exports.createJob = async (req, res) => {
   try {
     const job = await jobService.createJob(req.body);
-    return sendResponse(res, 201, true, "Job created successfully", job);
+    return sendResponse(res, 200, true, "Job created successfully", job);
   } catch (err) {
     return sendResponse(res, 500, false, err.message);
   }

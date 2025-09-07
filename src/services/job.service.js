@@ -51,7 +51,7 @@ exports.getAllJobs = async (page, limit, filters, search) => {
     limit: parseInt(limit),
     offset: parseInt(offset),
     order: [["created_at", "DESC"]],
-    include: [{ model: db.Company}]
+    include: [{ model: db.Company, as:"company"}]
   });
 
   return {

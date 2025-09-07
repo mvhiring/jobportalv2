@@ -8,35 +8,37 @@ module.exports = (sequelize, DataTypes) => {
       title: { type: DataTypes.STRING, allowNull: false },
       description: { type: DataTypes.TEXT, allowNull: false },
 
-      // Location & Dates
+      // Location
       location: { type: DataTypes.STRING, allowNull: true },
-      start_date: { type: DataTypes.DATEONLY, allowNull: true },
-      end_date: { type: DataTypes.DATEONLY, allowNull: true },
-      application_deadline: { type: DataTypes.DATEONLY, allowNull: true },
 
-      // Job Type
-      type: {
-        type: DataTypes.ENUM("full-time", "part-time", "remote", "internship"),
+      // Job Type & Work Mode
+      job_type: {
+        type: DataTypes.ENUM("Full-time", "Part-time", "Contract", "Internship", "Freelance"),
         allowNull: false,
-         defaultValue: "full-time"
+        defaultValue: "Full-time",
+      },
+      work_mode: {
+        type: DataTypes.ENUM("On-site", "Remote", "Hybrid"),
+        allowNull: false,
+        defaultValue: "On-site",
       },
 
-      // Salary & Perks
-      salary: { type: DataTypes.STRING, allowNull: true }, // e.g. "₹8 LPA" or "50000/month"
-      currency: { type: DataTypes.STRING, defaultValue: "INR" },
-      benefits: { type: DataTypes.JSON, allowNull: true }, 
-      // e.g. ["Health Insurance", "Work From Home", "Free Lunch"]
-
-      // Requirements
-      experience_level: { 
-        type: DataTypes.ENUM("Fresher", "Junior", "Mid-level", "Senior", "Lead"),
+      // Experience & Salary
+      experience: {
+        type: DataTypes.STRING, // Eg: "2+ years", "Fresher"
         allowNull: true,
       },
-      skills: { type: DataTypes.JSON, allowNull: true }, 
-      // e.g. ["React", "Node.js", "SQL"]
+      salary: { type: DataTypes.STRING, allowNull: true }, 
 
-      education_required: { type: DataTypes.STRING, allowNull: true }, 
-      // e.g. "B.Tech in Computer Science"
+      // Extra Job Details
+      requirements: { type: DataTypes.JSON, allowNull: true }, 
+      responsibilities: { type: DataTypes.JSON, allowNull: true }, 
+      benefits: { type: DataTypes.JSON, allowNull: true }, 
+      skills: { type: DataTypes.JSON, allowNull: true }, 
+      category: { type: DataTypes.STRING, allowNull: true },
+
+      // Dates
+      application_deadline: { type: DataTypes.DATEONLY, allowNull: true },
 
       // Relations
       company_id: {

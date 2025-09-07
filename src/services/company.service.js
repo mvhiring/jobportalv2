@@ -60,3 +60,22 @@ exports.getCompanyById = async (id) => {
     throw new Error(error.message);
   }
 };
+
+exports.getDropdownValues = async (filterOption = {}) => {
+  try {
+    const { isCompanyList } = filterOption;
+    const result = {};
+    if (isCompanyList) {
+      const companyList = await db.Company.findAll({
+        where: {
+          is_active: true,
+        },
+      });
+      result.companyList = companyList;
+    }
+
+    return result;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
