@@ -6,7 +6,7 @@ const appliedJobController = require("../controllers/appliedJob.controller");
 router.post("/", appliedJobController.applyJob);
 
 // // ✅ Admin - Get all applied jobs (with pagination & filters)
-// router.post("/list", appliedJobController.getAllAppliedJobs);
+router.post("/list", appliedJobController.getAllAppliedJobs);
 
 // // ✅ Get single applied job by ID
 // router.get("/:id", appliedJobController.getAppliedJobById);

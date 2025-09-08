@@ -2,7 +2,9 @@ const nodemailer = require("nodemailer");
 
 // Create a reusable transporter
 const transporter = nodemailer.createTransport({
-  service: "gmail", // or use any SMTP provider
+  host: "smtp.hostinger.com", // Replace with Hostinger's SMTP server
+  port: 587, // Usually 587 for TLS or 465 for SSL
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,

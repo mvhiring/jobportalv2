@@ -14,6 +14,7 @@ const sequelize = new Sequelize(
       acquire: 30000, // max time in ms to get a connection
       idle: 10000   // max idle time before releasing
     },
+    port:"14600",
     logging: false // set true if you want raw SQL logs
   }
 );
