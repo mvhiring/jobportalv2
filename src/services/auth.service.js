@@ -9,7 +9,8 @@ const sendEmail = require("./sendEmail");
 const hashPassword = async (password) => await bcrypt.hash(password, 10);
 
 // Compare password
-const comparePassword = async (password, hash) => await bcrypt.compare(password, hash);
+const comparePassword = async (password, hash) =>
+  await bcrypt.compare(password, hash);
 
 // Email transport
 const transporter = nodemailer.createTransport({
@@ -141,8 +142,12 @@ exports.registerUser = async (data) => {
                 <p style="margin:0;">© ${new Date().getFullYear()} MV Hiring. All rights reserved.</p>
 
                 <p style="margin:10px 0 0;">
-                  <a href="${process.env.FRONTEND_URL}/privacy" style="color:#94a3b8;text-decoration:underline;margin-right:10px;">Privacy</a> |
-                  <a href="${process.env.FRONTEND_URL}/terms" style="color:#94a3b8;text-decoration:underline;margin-left:10px;">Terms</a>
+                  <a href="${
+                    process.env.FRONTEND_URL
+                  }/privacy" style="color:#94a3b8;text-decoration:underline;margin-right:10px;">Privacy</a> |
+                  <a href="${
+                    process.env.FRONTEND_URL
+                  }/terms" style="color:#94a3b8;text-decoration:underline;margin-left:10px;">Terms</a>
                 </p>
               </td>
             </tr>
@@ -152,7 +157,9 @@ exports.registerUser = async (data) => {
           <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin-top:14px;">
             <tr>
               <td style="font-size:11px;color:#9aa4b2;text-align:center;padding:8px 12px;">
-                If you no longer want to receive these emails, you can <a href="${process.env.FRONTEND_URL}/unsubscribe" style="color:#0ea5a3;text-decoration:underline;">unsubscribe</a>.
+                If you no longer want to receive these emails, you can <a href="${
+                  process.env.FRONTEND_URL
+                }/unsubscribe" style="color:#0ea5a3;text-decoration:underline;">unsubscribe</a>.
               </td>
             </tr>
           </table>
@@ -162,8 +169,10 @@ exports.registerUser = async (data) => {
   </body>
 </html>
 
-  `
-  sendEmail(data.email, "Verify your email", html )
+  `;
+  sendEmail(data.email, "Verify your email", html)
+    .then(() => console.log(`📧 Verification email sent to ${data.email}`))
+    .catch((err) => console.error("❌ Email sending failed:", err));
   return user?.id;
 };
 
@@ -172,7 +181,8 @@ exports.verifyEmail = async (token) => {
   const user = await db.User.findOne({ where: { verification_token: token } });
   if (!user) throw new Error("Invalid or expired token");
 
-  if (user.verification_token_expiry < new Date()) throw new Error("Token expired");
+  if (user.verification_token_expiry < new Date())
+    throw new Error("Token expired");
 
   user.is_verified = true;
   user.verification_token = null;
@@ -197,7 +207,7 @@ exports.loginUser = async (email, password) => {
     first_name: user.first_name,
     last_name: user.last_name,
     role: user.role_id,
-    email: user.email
-  }
-  return { user:userInfo, token };
+    email: user.email,
+  };
+  return { user: userInfo, token };
 };

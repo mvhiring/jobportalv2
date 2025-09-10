@@ -10,7 +10,9 @@ const app = express();
 app.use(express.json());
 const allowedOrigins = [
   "http://localhost:3000",
-  "http://localhost:8080"
+  "http://localhost:5000",
+  "http://localhost:8080",
+  "https://jobportalv2.onrender.com"
 ];
 
 app.use(cors({
