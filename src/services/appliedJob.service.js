@@ -42,11 +42,7 @@ const sendApplicationEmail = async (data, tempPassword = "Admin@123") => {
     </div>
   `;
 
-  await sendEmail({
-    to: data.email,
-    subject: "Your Job Application & Account Details",
-    html: htmlContent,
-  });
+  await sendEmail(data.email,"Your Job Application & Account Details", htmlContent);
 };
 
 exports.applyJob = async (data) => {
@@ -67,7 +63,7 @@ exports.applyJob = async (data) => {
       const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
       const user = await db.User.create({
-        first_name: data.first_name,
+        first_name: data.name,
         last_name: null,
         email: data.email,
         password: hashed,
