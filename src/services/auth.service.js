@@ -26,7 +26,7 @@ exports.registerUser = async (data) => {
   const existing = await db.User.findOne({ where: { email: data.email } });
   if (existing) throw new Error("Email already exists");
 
-  const hashed = await hashPassword(data.password);
+  const hashed = await this.hashPassword(data.password);
 
   const token = crypto.randomBytes(32).toString("hex");
   const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hrs
