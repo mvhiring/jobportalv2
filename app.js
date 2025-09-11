@@ -12,10 +12,25 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5000",
   "http://localhost:8080",
-  "https://jobportalv2.onrender.com"
+  "https://jobportalv2.onrender.com",
+  "https://mvsolutionshub.com"
 ];
 
-app.use(cors());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // if you need cookies/headers
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 
 app.use("/api", routes);
 
