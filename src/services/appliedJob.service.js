@@ -2,7 +2,8 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const sendEmail = require("./sendEmail");
 const { hashPassword } = require("./auth.service");
-
+const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const sendApplicationEmail = async (data, tempPassword = "Admin@123") => {
   const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${data.verification_token}`;
   const loginUrl = `${process.env.FRONTEND_URL}/login`;
