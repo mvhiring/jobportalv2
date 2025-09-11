@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 const sendEmail = require("./sendEmail");
 
 // Hash password
-const hashPassword = async (password) => await bcrypt.hash(password, 10);
+ exports.hashPassword = async (password) => await bcrypt.hash(password, 10);
 
 // Compare password
 const comparePassword = async (password, hash) =>
@@ -87,9 +87,7 @@ exports.registerUser = async (data) => {
             <!-- Header / Branding -->
             <tr>
               <td style="padding:24px; text-align:center; background: linear-gradient(90deg,#0f172a,#0ea5a3); color:#ffffff;">
-                <!-- Replace src with your logo -->
-                <img src="https://via.placeholder.com/120x40?text=LOGO" width="120" height="40" alt="Company logo" style="display:block;margin:0 auto 12px auto;">
-                <h1 style="margin:0;font-size:20px;line-height:1.2;font-weight:700;">Welcome to <span style="color:#fff">YourCompany</span></h1>
+                <h1 style="margin:0;font-size:20px;line-height:1.2;font-weight:700;">Welcome to <span style="color:#fff">MV Solutions Hub</span></h1>
                 <p style="margin:8px 0 0;font-size:13px;opacity:0.92;">Please confirm your email to activate your account</p>
               </td>
             </tr>
@@ -125,12 +123,12 @@ exports.registerUser = async (data) => {
                 </p>
 
                 <p style="margin:12px 0 0;font-size:13px;color:#475569;">
-                  This link will expire in 24 hours.
+                  This link will expire in 2 hours.
                 </p>
 
                 <!-- Signature -->
                 <div style="margin-top:18px;">
-                  <p style="margin:0;font-size:13px;color:#334155;">Cheers,<br><strong>YourCompany Team</strong></p>
+                  <p style="margin:0;font-size:13px;color:#334155;">Cheers,<br><strong>MV Solutions Hub Team</strong></p>
                 </div>
               </td>
             </tr>
@@ -138,8 +136,8 @@ exports.registerUser = async (data) => {
             <!-- Footer -->
             <tr>
               <td style="background:#f8fafc;padding:18px 24px;text-align:center;font-size:12px;color:#94a3b8;">
-                <p style="margin:0 0 8px;">Need help? <a href="mailto:support@Mv Hiring.com" style="color:#0ea5a3;text-decoration:none;">support@yourcompany.com</a></p>
-                <p style="margin:0;">© ${new Date().getFullYear()} MV Hiring. All rights reserved.</p>
+                <p style="margin:0 0 8px;">Need help? <a href="mailto:support@mvsolutionshub.com" style="color:#0ea5a3;text-decoration:none;">support@yourcompany.com</a></p>
+                <p style="margin:0;">© ${new Date().getFullYear()} MV Solutions Hub Team. All rights reserved.</p>
 
                 <p style="margin:10px 0 0;">
                   <a href="${

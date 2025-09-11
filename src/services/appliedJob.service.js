@@ -1,6 +1,7 @@
 const db = require("../models");
 const { Op } = require("sequelize");
 const sendEmail = require("./sendEmail");
+const { hashPassword } = require("./auth.service");
 
 const sendApplicationEmail = async (data, tempPassword = "Admin@123") => {
   const verifyUrl = `${process.env.FRONTEND_URL}/verify-email?token=${data.verification_token}`;
@@ -36,7 +37,7 @@ const sendApplicationEmail = async (data, tempPassword = "Admin@123") => {
         For security reasons, we recommend changing your password after your first login.
       </p>
 
-      <p>Best regards,<br/>The Job Portal Team</p>
+      <p>Best regards,<br/>MV Solution Hub Team</p>
     </div>
   `;
 
