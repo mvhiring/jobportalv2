@@ -13,6 +13,7 @@ db.AppliedJob = require("./appliedJob.model")(sequelize, Sequelize.DataTypes);
 db.User = require("./user.model")(sequelize, Sequelize.DataTypes);
 db.Role = require("./roles.model")(sequelize, Sequelize.DataTypes);
 db.UserProfile = require("./userProfile.model")(sequelize, Sequelize.DataTypes);
+db.Contact = require("./contact.model")(sequelize, Sequelize.DataTypes);
 
 // Associations
 db.Company.hasMany(db.Job, { foreignKey: "company_id", as: "jobs" });
