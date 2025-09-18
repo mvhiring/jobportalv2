@@ -22,6 +22,10 @@ const transporter = nodemailer.createTransport({
  */
 const sendEmail = async (to, subject, html) => {
   try {
+transporter.verify((err, success) => {
+  if (err) console.error("SMTP connection failed:", err);
+  else console.log("✅ Ready to send:", success);
+});
 
     const info = await transporter.sendMail({
       from: "noreply@mvsolutionshub.com",
