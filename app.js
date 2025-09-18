@@ -13,7 +13,8 @@ const allowedOrigins = [
   "http://localhost:5000",
   "http://localhost:8080",
   "https://jobportalv2.onrender.com",
-  "https://mvsolutionshub.com"
+  "https://mvsolutionshub.com",
+  "https://www.mvsolutionshub.com"
 ];
 
 app.use(
