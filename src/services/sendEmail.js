@@ -1,15 +1,15 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.mvsolutionshub.com",
-  port: 465,            // SSL port
-  secure: true,         // Use SSL
+  host: "blaze.herosite.pro",
+  port: 465,
+  secure: true, // use SSL
   auth: {
     user: "noreply@mvsolutionshub.com",
-    pass: "Admin@1234",
+    pass: "Admin@1234", // or your updated password
   },
   tls: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: false, // allow self-signed
   },
 });
 
