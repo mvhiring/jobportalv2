@@ -1,17 +1,18 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.mvsolutionshub.com", // or mail.yourdomain.com
-  port: 587,
-  secure: false,
+  host: "smtp.mvsolutionshub.com",
+  port: 465,            // SSL port
+  secure: true,         // Use SSL
   auth: {
-    user:"noreply@mvsolutionshub.com",
+    user: "noreply@mvsolutionshub.com",
     pass: "Admin@1234",
   },
   tls: {
     rejectUnauthorized: false,
   },
 });
+
 
 /**
  * Send email
