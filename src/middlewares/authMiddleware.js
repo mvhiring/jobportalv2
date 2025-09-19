@@ -12,7 +12,7 @@ const authenticateToken = (req, res, next) => {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    return sendResponse(res, 400, false, "Token required", null);
+    return sendResponse(res, 401, false, "Token required", null);
   }
 
   try {
@@ -28,7 +28,7 @@ const authenticateToken = (req, res, next) => {
     // Call the next middleware or rout handler
     next();
   } catch (error) {
-    return sendResponse(res, 400, false, error.message, null);
+    return sendResponse(res, 401, false, error.message, null);
   }
 };
 

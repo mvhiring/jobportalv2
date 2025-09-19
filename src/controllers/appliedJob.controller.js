@@ -31,3 +31,24 @@ exports.getAllAppliedJobs = async (req, res) => {
     return sendResponse(res, 500, false, err.message);
   }
 };
+
+exports.updateAppliedJobStatus = async (req, res) => {
+  try {
+    const { status, id } = req.body; // new status
+
+    const updatedApplication = await appliedJobService.updateAppliedJobStatus(
+      id,
+      status
+    );
+
+    return sendResponse(
+      res,
+      200,
+      true,
+      "Application status updated successfully",
+      updatedApplication
+    );
+  } catch (err) {
+    return sendResponse(res, 500, false, err.message);
+  }
+};

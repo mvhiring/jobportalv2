@@ -43,3 +43,28 @@ exports.getJobsByCategory = async (req, res) => {
     return sendResponse(res, 500, false, err.message);
   }
 };
+
+// ✅ Delete Job by ID
+exports.deleteJob = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const result = await jobService.deleteJobById(id);
+
+    return sendResponse(res, 200, true, "Job deleted successfully", result);
+  } catch (err) {
+    return sendResponse(res, 500, false, err.message);
+  }
+};
+
+// ✅ Update Job
+exports.updateJob = async (req, res) => {
+  try {
+    const { id } = req.params; // job ID from URL
+    const updatedJob = await jobService.updateJobById(id, req.body);
+
+    return sendResponse(res, 200, true, "Job updated successfully", updatedJob);
+  } catch (err) {
+    return sendResponse(res, 500, false, err.message);
+  }
+};
+

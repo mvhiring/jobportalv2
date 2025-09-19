@@ -83,3 +83,23 @@ exports.getJobsByCategory = async (category, page, limit) => {
     jobs: rows,
   };
 };
+
+exports.deleteJobById = async (id) => {
+  const job = await db.Job.findByPk(id);
+  if (!job) {
+    throw new Error("Job not found");
+  }
+  await job.destroy();
+  return job;
+};
+
+
+exports.updateJobById = async (id, data) => {
+  const job = await db.Job.findByPk(id);
+  if (!job) {
+    throw new Error("Job not found");
+  }
+
+  await job.update(data); 
+  return job;
+};

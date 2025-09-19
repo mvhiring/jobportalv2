@@ -88,12 +88,13 @@ exports.getAllAppliedJobs = async (page, limit, filters) => {
   try {
     const offset = (page - 1) * limit;
     const where = {};
-
-    if (filters.name) {
-      where.name = { [Op.iLike]: `%${filters.name}%` };
-    }
-    if (filters.email) {
-      where.email = { [Op.iLike]: `%${filters.email}%` };
+    const jobWhere = {};
+    const companyWhere = {};
+   if (filters.search) {
+      where[Op.or] = [
+        { name: { [Op.like]: `%${filters.search}%` } },
+        { email: { [Op.like]: `%${filters.search}%` } },
+      ];
     }
     if (filters.status) {
       where.status = filters.status;
@@ -144,5 +145,24 @@ exports.getAppliedJobById = async (id) => {
     });
   } catch (error) {
     throw new Error(error.message);
+  }
+};
+
+exports.updateAppliedJobStatus = async (id, newStatus) => {
+  try {
+    // find job application
+    const appliedJob = await db.AppliedJob.findByPk(id);
+
+    if (!appliedJob) {
+     throw new Error("Application not found")
+    }
+
+    // update status
+    appliedJob.status = newStatus;
+    await appliedJob.save();
+
+    return appliedJob;
+  } catch (error) {
+    throw new Error(error.message)
   }
 };
