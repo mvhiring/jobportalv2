@@ -15,7 +15,7 @@ exports.createContact = async (req, res) => {
       <p>${message}</p>
     `;
 
-    sendEmail("hr@mvsolutionshub.com", `New Contact Message from ${full_name}`, adminHtml)
+    sendEmail("vivek7292932052@gmail.com", `New Contact Message from ${full_name}`, adminHtml)
       .then(() => console.log(`email sent to ${full_name}`))
       .catch((err) => console.error("Email sending failed:", err));
     return sendResponse(
