@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       benefits: { type: DataTypes.JSON, allowNull: true }, 
       skills: { type: DataTypes.JSON, allowNull: true }, 
       category: { type: DataTypes.STRING, allowNull: true },
+      pre_questions: { type: DataTypes.JSON, allowNull: true }, 
 
       // Dates
       application_deadline: { type: DataTypes.DATEONLY, allowNull: true },

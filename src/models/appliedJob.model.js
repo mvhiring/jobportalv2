@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      pre_questions_answers: { type: DataTypes.JSON, allowNull: true }, 
 
       name: { type: DataTypes.STRING, allowNull: false },
       email: { type: DataTypes.STRING, allowNull: false, validate: { isEmail: true } },

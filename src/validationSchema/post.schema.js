@@ -24,7 +24,7 @@ const createJobSchema = Joi.object({
   responsibilities: Joi.array().items(Joi.string()).allow(null),
   benefits: Joi.array().items(Joi.string()).allow(null),
   skills: Joi.array().items(Joi.string()).min(1).required(),
-
+  pre_questions:Joi.array().items(Joi.string()).allow(null),
   category: Joi.string().allow("", null),
 
   application_deadline: Joi.date().iso().required(),

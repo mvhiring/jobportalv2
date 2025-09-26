@@ -12,6 +12,7 @@ exports.applyJob = async (req, res) => {
       phone: req.body.phone,
       resume: req.body.resume,
       cover_letter: req.body.cover_letter,
+      pre_questions_answers: req.body.pre_questions_answers
     });
 
     return sendResponse(res, 200, true, "Job applied successfully", appliedJob);

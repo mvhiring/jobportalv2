@@ -1,19 +1,13 @@
 const nodemailer = require("nodemailer");
 
+// Create transporter for Gmail
 const transporter = nodemailer.createTransport({
-  host: "blaze.herosite.pro",
-  port: 587, // try 587 or 2525
-  secure: false, // STARTTLS
+  service: "gmail",
   auth: {
-    user: "noreply@mvsolutionshub.com",
-    pass: "Admin@1234",
-  },
-  tls: {
-    rejectUnauthorized: false,
+    user: "mvhirings@gmail.com", // Your Gmail address
+    pass: "eqom pist vprv exvl",   // App password (not your Gmail password)
   },
 });
-
-
 
 /**
  * Send email
@@ -23,13 +17,14 @@ const transporter = nodemailer.createTransport({
  */
 const sendEmail = async (to, subject, html) => {
   try {
-transporter.verify((err, success) => {
-  if (err) console.error("SMTP connection failed:", err);
-  else console.log("✅ Ready to send:", success);
-});
+    // Verify connection
+    transporter.verify((err, success) => {
+      if (err) console.error("SMTP connection failed:", err);
+      else console.log("✅ Gmail ready to send:", success);
+    });
 
     const info = await transporter.sendMail({
-      from: "noreply@mvsolutionshub.com",
+      from: "mvhirings@gmail.com",
       to,
       subject,
       html,
